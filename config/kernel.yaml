@@ -1,0 +1,55 @@
+empresa: Firma Inteligencia / Mi Firma SRL
+uuid: b32e8ce6-6175-45c2-8f2c-afef3dbb0ff8
+version_kernel: "3.0.0"
+idioma: es
+timezone: America/Argentina/Buenos_Aires
+principio: "mínimo privilegio + CEO root"
+
+seguridad:
+  max_intentos_login: 5
+  bloqueo_minutos: 15
+  sesion_horas: 8
+  ceo_bypass: true
+  algoritmo_hash: bcrypt
+
+api:
+  host: "0.0.0.0"
+  port: 8741
+
+modulos_habilitados:
+  - OSINT
+  - FININT
+  - CYBERINT
+  - SOCMINT
+  - HUMINT
+  - GEOINT
+  - AML
+  - DUE_DILIGENCE
+  - ESG
+  - ISO27001
+  - SOC2
+  - LITIGATION_SUPPORT
+  - RIESGO_PAIS
+  - SEGURIDAD_CORPORATIVA
+
+areas:
+  - 00_GOBERNANZA
+  - 01_Clientes
+  - 02_Proyectos
+  - 03_Operaciones
+  - 04_Documentos
+  - 05_Riesgos
+  - 06_Fuentes
+  - 07_Auditorias
+  - 08_Facturacion
+  - 09_Evidencias
+  - 10_Plantillas
+  - 11_Reportes
+  - 12_Cumplimiento
+  - 13_Backups
+  - 14_Recursos_Humanos
+  - 15_Modulos
+  - 16_Comercial
+  - 17_Finanzas
+  - 18_Tecnologia
+  - 19_Innovacion
