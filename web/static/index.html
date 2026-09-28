@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Firma Inteligencia — Kernel SIF</title>
+<style>
+:root{--bg:#0b0f14;--panel:#12181f;--border:#1e2a36;--text:#e6edf3;--muted:#8b9bab;--accent:#3b82f6;--accent2:#06b6d4;--ok:#22c55e;--err:#ef4444}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Segoe UI,system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}.hidden{display:none!important}
+#login-view{min-height:100vh;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at top,#132033 0%,var(--bg) 60%)}
+.login-card{width:100%;max-width:400px;background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:2rem;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.login-card h1{font-size:1.35rem;margin-bottom:.25rem}.login-card .sub{color:var(--muted);font-size:.9rem;margin-bottom:1.5rem}
+.login-card label{display:block;font-size:.8rem;color:var(--muted);margin-bottom:.35rem}
+.login-card input{width:100%;padding:.7rem .9rem;margin-bottom:1rem;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:1rem}
+.login-card input:focus{outline:none;border-color:var(--accent)}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:.7rem 1.2rem;border:none;border-radius:8px;font-size:.95rem;font-weight:600;cursor:pointer}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;width:100%}.btn-primary:hover{filter:brightness(1.1)}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border);width:100%}.error-msg{color:var(--err);font-size:.85rem;margin-bottom:1rem;min-height:1.2em}
+#app-view{display:flex;min-height:100vh}.sidebar{width:240px;background:var(--panel);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:1.25rem 0}
+.sidebar .brand{padding:0 1.25rem 1.25rem;border-bottom:1px solid var(--border);margin-bottom:1rem}.sidebar .brand strong{display:block}.sidebar .brand span{color:var(--muted);font-size:.75rem}
+.nav-item{padding:.65rem 1.25rem;color:var(--muted);cursor:pointer;font-size:.9rem;border-left:3px solid transparent}
+.nav-item:hover,.nav-item.active{color:var(--text);background:rgba(59,130,246,.08);border-left-color:var(--accent)}
+.sidebar .user-box{margin-top:auto;padding:1rem 1.25rem;border-top:1px solid var(--border);font-size:.85rem}.sidebar .user-box .roles{color:var(--muted);font-size:.75rem;margin:.25rem 0 .75rem}
+.main{flex:1;padding:1.5rem 2rem;overflow-y:auto}.main h2{font-size:1.25rem;margin-bottom:1.25rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-bottom:1.5rem}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:1.15rem}.card .label{color:var(--muted);font-size:.75rem;text-transform:uppercase}.card .value{font-size:1.5rem;font-weight:700;margin-top:.35rem}.card .value.ok{color:var(--ok)}.card .value.ceo{color:var(--accent2)}
+table{width:100%;border-collapse:collapse;background:var(--panel);border-radius:12px;overflow:hidden;border:1px solid var(--border)}
+th,td{text-align:left;padding:.75rem 1rem;border-bottom:1px solid var(--border);font-size:.9rem}th{color:var(--muted);font-weight:500;font-size:.75rem;text-transform:uppercase}
+.badge{display:inline-block;padding:.2rem .5rem;border-radius:6px;font-size:.75rem;background:rgba(59,130,246,.15);color:var(--accent)}.badge.ceo{background:rgba(6,182,212,.15);color:var(--accent2)}.badge.ok{background:rgba(34,197,94,.15);color:var(--ok)}
+.check-box{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:1.25rem;max-width:520px}.check-box .row{display:flex;gap:.75rem;margin-bottom:.75rem}
+.check-box input,.check-box select{flex:1;padding:.6rem .8rem;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text)}
+.result{margin-top:1rem;padding:.75rem 1rem;border-radius:8px;font-weight:600}.result.allow{background:rgba(34,197,94,.12);color:var(--ok)}.result.deny{background:rgba(239,68,68,.12);color:var(--err)}
+</style>
+</head>
+<body>
+<div id="login-view">
+  <div class="login-card">
+    <h1>Kernel SIF v3</h1>
+    <p class="sub">Firma Inteligencia — Control de acceso empresarial</p>
+    <div id="login-error" class="error-msg"></div>
+    <label>Usuario</label>
+    <input id="username" type="text" autocomplete="username" placeholder="ceo"/>
+    <label>Contraseña</label>
+    <input id="password" type="password" autocomplete="current-password"/>
+    <button class="btn btn-primary" id="btn-login">Ingresar</button>
+  </div>
+</div>
+<div id="app-view" class="hidden">
+  <aside class="sidebar">
+    <div class="brand"><strong>Kernel SIF</strong><span>Firma Inteligencia</span></div>
+    <div class="nav-item active" data-page="dashboard">Dashboard</div>
+    <div class="nav-item" data-page="roles">Roles</div>
+    <div class="nav-item" data-page="users">Usuarios</div>
+    <div class="nav-item" data-page="check">Verificar permiso</div>
+    <div class="user-box">
+      <div class="name" id="ui-username">—</div>
+      <div class="roles" id="ui-roles">—</div>
+      <button class="btn btn-ghost" id="btn-logout">Cerrar sesión</button>
+    </div>
+  </aside>
+  <main class="main">
+    <div id="page-dashboard">
+      <h2>Dashboard</h2>
+      <div class="grid">
+        <div class="card"><div class="label">Estado</div><div class="value ok" id="d-status">—</div></div>
+        <div class="card"><div class="label">Usuario</div><div class="value" id="d-user">—</div></div>
+        <div class="card"><div class="label">CEO</div><div class="value ceo" id="d-ceo">—</div></div>
+        <div class="card"><div class="label">Módulos</div><div class="value" id="d-mods">—</div></div>
+      </div>
+      <div class="card"><div class="label">Empresa</div><div style="margin-top:.5rem" id="d-empresa">—</div>
+        <div class="label" style="margin-top:1rem">Kernel</div><div style="margin-top:.5rem" id="d-kernel">—</div></div>
+    </div>
+    <div id="page-roles" class="hidden"><h2>Roles del sistema</h2>
+      <table><thead><tr><th>ID</th><th>Nivel</th><th>Nombre</th><th>Descripción</th></tr></thead><tbody id="roles-body"></tbody></table></div>
+    <div id="page-users" class="hidden"><h2>Usuarios</h2>
+      <table><thead><tr><th>Usuario</th><th>Nombre</th><th>Roles</th><th>Estado</th></tr></thead><tbody id="users-body"></tbody></table>
+      <p id="users-error" class="error-msg" style="margin-top:1rem"></p></div>
+    <div id="page-check" class="hidden"><h2>Verificar permiso</h2>
+      <div class="check-box">
+        <div class="row"><input id="chk-area" placeholder="Área (ej: 02_Proyectos)"/></div>
+        <div class="row"><input id="chk-accion" placeholder="Acción (leer, escribir, crear...)"/></div>
+        <div class="row"><select id="chk-clasif"><option>PUBLICO</option><option selected>INTERNO</option><option>CONFIDENCIAL</option><option>RESTRINGIDO</option><option>CEO_ONLY</option></select></div>
+        <button class="btn btn-primary" id="btn-check" style="width:auto">Verificar</button>
+        <div id="check-result" class="result hidden"></div>
+      </div>
+    </div>
+  </main>
+</div>
+<script>
+const API=window.location.origin;let token=localStorage.getItem('sif_token')||'';
+async function api(path,opts={}){const headers={'Content-Type':'application/json',...(opts.headers||{})};if(token)headers['Authorization']='Bearer '+token;const res=await fetch(API+path,{...opts,headers});const data=await res.json().catch(()=>({}));if(!res.ok)throw new Error(data.detail||data.message||res.statusText);return data}
+function show(view){document.getElementById('login-view').classList.toggle('hidden',view!=='login');document.getElementById('app-view').classList.toggle('hidden',view!=='app')}
+function page(name){['dashboard','roles','users','check'].forEach(p=>document.getElementById('page-'+p).classList.toggle('hidden',p!==name));document.querySelectorAll('.nav-item').forEach(el=>el.classList.toggle('active',el.dataset.page===name))}
+async function loadMe(){const me=await api('/me');document.getElementById('ui-username').textContent=me.usuario||'\u2014';document.getElementById('ui-roles').textContent=(me.roles||[]).join(', ');document.getElementById('d-status').textContent='Operativo';document.getElementById('d-user').textContent=me.usuario||'\u2014';document.getElementById('d-ceo').textContent=me.es_ceo?'S\u00cd':'No';document.getElementById('d-mods').textContent=(me.modulos||[]).length;document.getElementById('d-empresa').textContent=me.empresa||'\u2014';document.getElementById('d-kernel').textContent=me.kernel||'\u2014'}
+async function loadRoles(){const roles=await api('/roles');document.getElementById('roles-body').innerHTML=roles.map(r=>`<tr><td><span class="badge ${r.id==='CEO'?'ceo':''}">${r.id}</span></td><td>${r.nivel}</td><td>${r.nombre}</td><td style="color:var(--muted)">${r.descripcion||''}</td></tr>`).join('')}
+async function loadUsers(){const err=document.getElementById('users-error');err.textContent='';try{const users=await api('/users');document.getElementById('users-body').innerHTML=users.map(u=>`<tr><td>${u.username}</td><td>${u.nombre}</td><td>${(u.roles||[]).map(r=>`<span class="badge ${r==='CEO'?'ceo':''}">${r}</span>`).join(' ')}</td><td><span class="badge ok">${u.activo?'ACTIVO':'INACTIVO'}</span></td></tr>`).join('')}catch(e){document.getElementById('users-body').innerHTML='';err.textContent=e.message}}
+document.getElementById('btn-login').onclick=async()=>{const err=document.getElementById('login-error');err.textContent='';try{const data=await api('/auth/login',{method:'POST',body:JSON.stringify({username:document.getElementById('username').value.trim(),password:document.getElementById('password').value})});if(!data.ok){err.textContent=data.message||'Error';return}token=data.token;localStorage.setItem('sif_token',token);await loadMe();show('app');page('dashboard')}catch(e){err.textContent=e.message}};
+document.getElementById('password').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('btn-login').click()});
+document.getElementById('btn-logout').onclick=async()=>{try{await api('/auth/logout',{method:'POST'})}catch(_){}token='';localStorage.removeItem('sif_token');show('login')};
+document.querySelectorAll('.nav-item').forEach(el=>{el.onclick=async()=>{const p=el.dataset.page;page(p);if(p==='roles')await loadRoles();if(p==='users')await loadUsers();if(p==='dashboard')await loadMe()}});
+document.getElementById('btn-check').onclick=async()=>{const box=document.getElementById('check-result');try{const data=await api('/check',{method:'POST',body:JSON.stringify({area:document.getElementById('chk-area').value.trim(),accion:document.getElementById('chk-accion').value.trim(),clasificacion:document.getElementById('chk-clasif').value})});box.classList.remove('hidden','allow','deny');box.classList.add(data.allowed?'allow':'deny');box.textContent=data.allowed?'\u2713 PERMITIDO':'\u2717 DENEGADO'}catch(e){box.classList.remove('hidden','allow');box.classList.add('deny');box.textContent=e.message}};
+(async()=>{if(token){try{await loadMe();show('app');page('dashboard');return}catch(_){token='';localStorage.removeItem('sif_token')}}show('login')})();
+</script>
+</body>
+</html>
