@@ -2,7 +2,10 @@
 """API HTTP local del Kernel (para VM / integraciones)."""
 from __future__ import annotations
 from typing import List, Optional
+from pathlib import Path
 from fastapi import FastAPI, HTTPException, Header, Depends
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
 from .core import FirmaKernel
@@ -13,6 +16,17 @@ app = FastAPI(
     version="3.0.0",
 )
 _kernel: Optional[FirmaKernel] = None
+
+_WEB = Path(__file__).resolve().parent.parent / "web" / "static"
+if _WEB.is_dir():
+    app.mount("/static", StaticFiles(directory=str(_WEB)), name="static")
+
+@app.get("/")
+def root_ui():
+    index = _WEB / "index.html"
+    if index.exists():
+        return FileResponse(str(index))
+    return {"service": "firma-kernel", "version": "3.0.0", "ui": "missing"}
 
 
 def get_kernel() -> FirmaKernel:
