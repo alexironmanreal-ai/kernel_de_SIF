@@ -1,0 +1,25 @@
+[Unit]
+Description=Firma Inteligencia Kernel Empresarial
+After=network.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=firma
+Group=firma
+WorkingDirectory=/opt/firma_kernel
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/opt/firma_kernel/venv/bin/python -m kernel serve --host 0.0.0.0 --port 8741
+Restart=on-failure
+RestartSec=5
+LimitNOFILE=65535
+
+# Seguridad básica
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/firma_kernel/data /opt/firma_kernel/logs
+
+[Install]
+WantedBy=multi-user.target
