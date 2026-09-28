@@ -1,0 +1,170 @@
+{
+  "CEO": {
+    "nombre": "Chief Executive Officer",
+    "descripcion": "Máxima autoridad. Acceso total (root).",
+    "nivel": 0,
+    "es_sistema": true,
+    "hereda_de": [],
+    "permisos": [{"area": "*", "acciones": ["todo"], "clasificacion_max": "CEO_ONLY"}]
+  },
+  "CTO": {
+    "nombre": "Chief Technology Officer",
+    "descripcion": "Tecnología, infraestructura y kernel.",
+    "nivel": 10,
+    "hereda_de": [],
+    "permisos": [
+      {"area": "18_Tecnologia", "acciones": ["todo"], "clasificacion_max": "RESTRINGIDO"},
+      {"area": "kernel", "acciones": ["leer", "escribir"], "clasificacion_max": "CONFIDENCIAL"},
+      {"area": "config", "acciones": ["leer", "escribir"], "clasificacion_max": "CONFIDENCIAL"},
+      {"area": "logs", "acciones": ["leer", "auditar"], "clasificacion_max": "RESTRINGIDO"},
+      {"area": "13_Backups", "acciones": ["todo"], "clasificacion_max": "RESTRINGIDO"},
+      {"area": "15_Modulos", "acciones": ["todo"], "clasificacion_max": "CONFIDENCIAL"},
+      {"area": "19_Innovacion", "acciones": ["todo"], "clasificacion_max": "CONFIDENCIAL"}
+    ]
+  },
+  "COO": {
+    "nombre": "Chief Operating Officer",
+    "descripcion": "Operaciones, procesos y proyectos.",
+    "nivel": 10,
+    "hereda_de": [],
+    "permisos": [
+      {"area": "03_Operaciones", "acciones": ["todo"], "clasificacion_max": "CONFIDENCIAL"},
+      {"area": "02_Proyectos", "acciones": ["todo"], "clasificacion_max": "CONFIDENCIAL"},
+      {"area": "07_Auditorias", "acciones": ["todo"], "clasificacion_max": "CONFIDENCIAL"},
+      {"area": "11_Reportes", "acciones": ["todo"], "clasificacion_max": "CONFIDENCIAL"},
+      {"area": "10_Plantillas", "acciones": ["todo"], "clasificacion_max": "INTERNO"},
+      {"area": "05_Riesgos", "acciones": ["leer", "escribir", "crear"], "clasificacion_max": "CONFIDENCIAL"}
+    ]
+  },
+  "CFO": {
+    "nombre": "Chief Financial Officer",
+    "descripcion": "Finanzas y facturación.",
+    "nivel": 10,
+    "hereda_de": [],
+    "permisos": [
+      {"area": "08_Facturacion", "acciones": ["todo"], "clasificacion_max": "RESTRINGIDO"},
+      {"area": "17_Finanzas", "acciones": ["todo"], "clasificacion_max": "RESTRINGIDO"},
+      {"area": "01_Clientes", "acciones": ["leer"], "clasificacion_max": "CONFIDENCIAL"}
+    ]
+  },
+  "CISO": {
+    "nombre": "Chief Information Security Officer",
+    "descripcion": "Seguridad de la información y cumplimiento.",
+    "nivel": 10,
+    "hereda_de": [],
+    "permisos": [
+      {"area": "12_Cumplimiento", "acciones": ["todo"], "clasificacion_max": "RESTRINGIDO"},
+      {"area": "05_Riesgos", "acciones": ["todo"], "clasificacion_max": "RESTRINGIDO"},
+      {"area": "07_Auditorias", "acciones": ["todo"], "clasificacion_max": "RESTRINGIDO"},
+      {"area": "09_Evidencias", "acciones": ["todo"], "clasificacion_max": "RESTRINGIDO"},
+      {"area": "logs", "acciones": ["leer", "auditar"], "clasificacion_max": "RESTRINGIDO"},
+      {"area": "00_GOBERNANZA", "acciones": ["leer", "escribir"], "clasificacion_max": "CONFIDENCIAL"}
+    ]
+  },
+  "DIRECTOR_INTELIGENCIA": {
+    "nombre": "Director de Inteligencia",
+    "descripcion": "Dirección de inteligencia y módulos.",
+    "nivel": 20,
+    "hereda_de": [],
+    "permisos": [
+      {"area": "15_Modulos", "acciones": ["todo"], "clasificacion_max": "RESTRINGIDO"},
+      {"area": "02_Proyectos", "acciones": ["todo"], "clasificacion_max": "CONFIDENCIAL"},
+      {"area": "06_Fuentes", "acciones": ["todo"], "clasificacion_max": "RESTRINGIDO"},
+      {"area": "09_Evidencias", "acciones": ["todo"], "clasificacion_max": "RESTRINGIDO"},
+      {"area": "11_Reportes", "acciones": ["todo"], "clasificacion_max": "CONFIDENCIAL"},
+      {"area": "01_Clientes", "acciones": ["leer", "escribir"], "clasificacion_max": "CONFIDENCIAL"}
+    ]
+  },
+  "ANALISTA_SENIOR": {
+    "nombre": "Analista Senior",
+    "descripcion": "Analista con capacidad de supervisión.",
+    "nivel": 30,
+    "hereda_de": [],
+    "permisos": [
+      {"area": "02_Proyectos", "acciones": ["leer", "escribir", "crear"], "clasificacion_max": "CONFIDENCIAL"},
+      {"area": "06_Fuentes", "acciones": ["leer", "escribir", "crear"], "clasificacion_max": "CONFIDENCIAL"},
+      {"area": "09_Evidencias", "acciones": ["leer", "escribir", "crear"], "clasificacion_max": "CONFIDENCIAL"},
+      {"area": "11_Reportes", "acciones": ["leer", "escribir", "crear"], "clasificacion_max": "CONFIDENCIAL"},
+      {"area": "15_Modulos", "acciones": ["leer", "escribir"], "clasificacion_max": "CONFIDENCIAL"}
+    ]
+  },
+  "ANALISTA": {
+    "nombre": "Analista",
+    "descripcion": "Analista operativo.",
+    "nivel": 40,
+    "hereda_de": [],
+    "permisos": [
+      {"area": "02_Proyectos", "acciones": ["leer", "escribir"], "clasificacion_max": "CONFIDENCIAL"},
+      {"area": "06_Fuentes", "acciones": ["leer", "escribir"], "clasificacion_max": "CONFIDENCIAL"},
+      {"area": "09_Evidencias", "acciones": ["leer", "escribir"], "clasificacion_max": "CONFIDENCIAL"},
+      {"area": "11_Reportes", "acciones": ["leer", "escribir"], "clasificacion_max": "INTERNO"},
+      {"area": "15_Modulos", "acciones": ["leer"], "clasificacion_max": "INTERNO"}
+    ]
+  },
+  "INVESTIGADOR_OSINT": {
+    "nombre": "Investigador OSINT",
+    "descripcion": "Especialista en fuentes abiertas.",
+    "nivel": 45,
+    "hereda_de": [],
+    "permisos": [
+      {"area": "15_Modulos", "acciones": ["leer", "escribir"], "clasificacion_max": "CONFIDENCIAL"},
+      {"area": "06_Fuentes", "acciones": ["todo"], "clasificacion_max": "CONFIDENCIAL"},
+      {"area": "09_Evidencias", "acciones": ["leer", "escribir", "crear"], "clasificacion_max": "CONFIDENCIAL"},
+      {"area": "02_Proyectos", "acciones": ["leer", "escribir"], "clasificacion_max": "INTERNO"}
+    ]
+  },
+  "COMERCIAL": {
+    "nombre": "Responsable Comercial",
+    "descripcion": "Captación y clientes.",
+    "nivel": 40,
+    "hereda_de": [],
+    "permisos": [
+      {"area": "16_Comercial", "acciones": ["todo"], "clasificacion_max": "CONFIDENCIAL"},
+      {"area": "01_Clientes", "acciones": ["todo"], "clasificacion_max": "CONFIDENCIAL"},
+      {"area": "08_Facturacion", "acciones": ["leer", "escribir"], "clasificacion_max": "INTERNO"}
+    ]
+  },
+  "RRHH": {
+    "nombre": "Recursos Humanos",
+    "descripcion": "Personas y roles.",
+    "nivel": 35,
+    "hereda_de": [],
+    "permisos": [
+      {"area": "14_Recursos_Humanos", "acciones": ["todo"], "clasificacion_max": "RESTRINGIDO"},
+      {"area": "00_GOBERNANZA", "acciones": ["leer"], "clasificacion_max": "INTERNO"}
+    ]
+  },
+  "AUDITOR": {
+    "nombre": "Auditor Interno",
+    "descripcion": "Auditoría y cumplimiento.",
+    "nivel": 25,
+    "hereda_de": [],
+    "permisos": [
+      {"area": "07_Auditorias", "acciones": ["todo"], "clasificacion_max": "RESTRINGIDO"},
+      {"area": "12_Cumplimiento", "acciones": ["todo"], "clasificacion_max": "RESTRINGIDO"},
+      {"area": "logs", "acciones": ["leer", "auditar"], "clasificacion_max": "RESTRINGIDO"},
+      {"area": "*", "acciones": ["leer"], "clasificacion_max": "INTERNO"}
+    ]
+  },
+  "ADMINISTRATIVO": {
+    "nombre": "Administrativo",
+    "descripcion": "Soporte administrativo.",
+    "nivel": 50,
+    "hereda_de": [],
+    "permisos": [
+      {"area": "01_Clientes", "acciones": ["leer", "escribir"], "clasificacion_max": "INTERNO"},
+      {"area": "08_Facturacion", "acciones": ["leer", "escribir"], "clasificacion_max": "INTERNO"},
+      {"area": "04_Documentos", "acciones": ["leer", "escribir"], "clasificacion_max": "INTERNO"}
+    ]
+  },
+  "INVITADO": {
+    "nombre": "Invitado",
+    "descripcion": "Solo lectura pública.",
+    "nivel": 90,
+    "hereda_de": [],
+    "permisos": [
+      {"area": "00_GOBERNANZA", "acciones": ["leer"], "clasificacion_max": "PUBLICO"},
+      {"area": "10_Plantillas", "acciones": ["leer"], "clasificacion_max": "PUBLICO"}
+    ]
+  }
+}
