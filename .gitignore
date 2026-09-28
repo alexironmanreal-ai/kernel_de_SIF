@@ -1,0 +1,19 @@
+# Runtime / secrets
+data/
+logs/
+*.db
+*.db-*
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.Python
+*.egg-info/
+dist/
+build/
+.DS_Store
+Thumbs.db
+*.log
+.session
