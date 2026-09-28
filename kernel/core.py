@@ -29,8 +29,10 @@ class FirmaKernel:
         self.policy = PasswordPolicy()
         self.usuario: Optional[Usuario] = None
         self.token: Optional[str] = None
+        # Crear carpetas de runtime ANTES de cualquier log/boot
+        (self.root / "logs").mkdir(parents=True, exist_ok=True)
+        (self.root / "data").mkdir(parents=True, exist_ok=True)
         self._ensure_ceo()
-        AUDIT_FILE.parent.mkdir(parents=True, exist_ok=True)
 
     def _load_config(self) -> dict:
         path = self.root / "config" / "kernel.yaml"
@@ -81,8 +83,12 @@ class FirmaKernel:
             f"{datetime.now(timezone.utc).isoformat()} | {username} | {accion} | "
             f"{kw.get('area','')}/{kw.get('recurso','')} | {kw.get('resultado','OK')} | {kw.get('detalle','')}\n"
         )
-        with open(AUDIT_FILE, "a", encoding="utf-8") as f:
-            f.write(line)
+        try:
+            AUDIT_FILE.parent.mkdir(parents=True, exist_ok=True)
+            with open(AUDIT_FILE, "a", encoding="utf-8") as f:
+                f.write(line)
+        except Exception:
+            pass
 
     def login(self, username: str, password: str, ip: str = "local") -> tuple:
         sec = self.config.get("seguridad", {})
